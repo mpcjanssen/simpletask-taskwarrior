@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/ui_sort_case_sensitive"
+            android:title="@string/sort_case_sensitive_title"
+    />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="@string/ui_show_confirmation_dialogs"
+        android:summary="@string/show_confirmation_dialogs_summary"
+        android:title="@string/show_confirmation_dialogs_title"
+        />
+    <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/keep_selection"
+            android:title="@string/keep_selection_title"
+            android:summary="@string/keep_selection_summary"
+    />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="@string/back_clears_filter"
+        android:summary="@string/back_clears_filter_summary"
+        android:title="@string/back_clears_filter_title"
+        />
+
+    <EditTextPreference
+        android:defaultValue=" +background"
+        android:key="@string/share_task_append_text"
+        android:summary="@string/share_task_append_text_summary"
+        android:title="@string/share_task_append_text_title"
+        />
+</PreferenceScreen>

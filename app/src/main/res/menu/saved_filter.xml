@@ -1,0 +1,13 @@
+<!--suppress ALL -->
+
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <item
+        android:id="@+id/menu_saved_filter_shortcut"
+        android:title="@string/add_filter_shortcut"
+        android:orderInCategory="100"
+        app:showAsAction="never"
+        />
+</menu>

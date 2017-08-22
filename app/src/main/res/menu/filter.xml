@@ -1,0 +1,12 @@
+<!--suppress ALL -->
+
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_filter_action"
+        android:title="@string/filter"
+        android:icon="@drawable/ic_done_white_24dp"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        />
+</menu>

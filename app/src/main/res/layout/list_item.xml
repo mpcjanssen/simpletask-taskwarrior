@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+This file is part of Todo.txt Touch, an Android app for managing your todo.txt file (http://todotxt.com).
+
+Copyright (c) 2009-2012 Todo.txt contributors (http://todotxt.com)
+
+LICENSE:
+
+Todo.txt Touch is free software: you can redistribute it and/or modify it under the terms of the GNU General Public
+License as published by the Free Software Foundation, either version 2 of the License, or (at your option) any
+later version.
+
+Todo.txt Touch is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+details.
+
+You should have received a copy of the GNU General Public License along with Todo.txt Touch.  If not, see
+<http://www.gnu.org/licenses/>.
+
+@author Todo.txt contributors <todotxt@yahoogroups.com>
+@license http://www.gnu.org/licenses/gpl.html
+@copyright 2009-2012 Todo.txt contributors (http://todotxt.com)
+-->
+
+<!--suppress ALL -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:background="?android:attr/activatedBackgroundIndicator"
+    android:id="@+id/taskline"
+    android:clickable="true"
+    android:longClickable="true"
+    >
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:clickable="true"
+        android:id="@+id/checkBox"
+        />
+    <ImageView
+            android:visibility="gone"
+            android:id="@+id/deletedIndicator"
+            android:background="@android:color/holo_red_light"
+            android:layout_width="20sp"
+            android:layout_height="match_parent"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:paddingLeft="4dip"
+        android:layout_height="wrap_content"
+        >
+        <TextView
+            android:id="@+id/tasktext"
+            android:focusable="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="0dip"
+            android:paddingRight="4dip"
+            android:paddingTop="4dip"
+            />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:id="@+id/datebar" 
+            >
+            <TextView
+                android:id="@+id/taskage"
+                android:focusable="false"
+                android:layout_width="0sp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="0dip"
+                android:paddingBottom="4dip"
+                android:layout_weight="1"
+                />
+            <TextView
+                android:id="@+id/taskdue"
+                android:focusable="false"
+                android:layout_width="0sp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="4dip"
+                android:paddingBottom="4dip"
+                android:layout_weight="1"
+                />
+            <TextView
+                android:id="@+id/taskthreshold"
+                android:focusable="false"
+                android:layout_width="0sp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="4dip"
+                android:paddingBottom="4dip"
+                android:layout_weight="1"
+                />
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:id="@+id/annotationbar">
+            <ImageView
+                    android:focusable="false"
+                    android:layout_width="20sp"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="0dip"
+                    android:paddingBottom="4dip"
+            />
+            <TextView
+                    android:id="@+id/annotations"
+                    android:focusable="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="4dip"
+                    android:paddingBottom="2dip"
+            />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

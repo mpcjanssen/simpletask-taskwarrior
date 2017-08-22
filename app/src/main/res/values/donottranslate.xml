@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+This file is part of Todo.txt Touch, an Android app for managing your todo.txt file (http://todotxt.com).
+
+Copyright (c) 2009-2012 Todo.txt contributors (http://todotxt.com)
+Copyright (c) 2015 Vojtech Kral
+
+LICENSE:
+
+Todo.txt Touch is free software: you can redistribute it and/or modify it under the terms of the GNU General Public
+License as published by the Free Software Foundation, either version 2 of the License, or (at your option) any
+later version.
+
+Todo.txt Touch is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+details.
+
+You should have received a copy of the GNU General Public License along with Todo.txt Touch.  If not, see
+<http://www.gnu.org/licenses/>.
+
+@author Todo.txt contributors <todotxt@yahoogroups.com>
+@license http://www.gnu.org/licenses/gpl.html
+@copyright 2009-2012 Todo.txt contributors (http://todotxt.com)
+@copyright 2015 Vojtech Kral
+-->
+
+<!--suppress ALL -->
+<resources>
+    <!-- available options for deferring -->
+    <string-array name="deferOptions">
+        <item>@string/none</item>
+        <item>@string/dates_today</item>
+        <item>@string/dates_tomorrow</item>
+        <item>@string/dates_one_week</item>
+        <item>@string/dates_one_month</item>
+        <item>@string/date_pick</item>
+    </string-array>
+
+    <string-array name="dialogActions">
+        <item>@string/none</item>
+        <item>@string/keep</item>
+        <item>@string/all</item>
+    </string-array>
+
+    <!-- Defined themes -->
+    <string-array name="themes">
+        <item>Light</item>
+        <item>Dark</item>
+        <item>Black</item>
+    </string-array>
+
+    <string-array name="theme_values">
+        <item>light_darkactionbar</item>
+        <item>dark</item>
+        <item>black</item>
+    </string-array>
+
+    <!-- Defined themes -->
+    <string-array name="widget_themes">
+        <item>Light</item>
+        <item>Dark</item>
+    </string-array>
+
+    <string-array name="widget_theme_values">
+        <item>light_darkactionbar</item>
+        <item>dark</item>
+    </string-array>
+
+    <string-array name="task_text_ellipsizing">
+        <item>@string/task_text_ellipsizing_none</item>
+        <item>@string/task_text_ellipsizing_start</item>
+        <item>@string/task_text_ellipsizing_middle</item>
+        <item>@string/task_text_ellipsizing_end</item>
+        <item>@string/task_text_ellipsizing_marquee</item>
+    </string-array>
+
+    <string-array name="task_text_ellipsizing_values">
+        <item>no_ellipsize</item>
+        <item>start</item>
+        <item>middle</item>
+        <item>end</item>
+        <item>marquee</item>
+    </string-array>
+
+    <!-- Unlocalized Help names -->
+    <string name="help_add_task" translatable="false">addtask</string>
+
+    <!-- Preference keys -->
+    <string name="sort_complete_last_pref_key"    translatable="false">todotxtsortcompletelast</string>
+    <string name="default_sort_pref_key"          translatable="false">default_sort</string>
+    <string name="font_size_delta_pref_key"       translatable="false">fontsizedelta</string>
+    <string name="theme_pref_key"                 translatable="false">theme</string>
+    <string name="custom_font_size"               translatable="false">custom_font_size</string>
+    <string name="widget_theme_pref_key"          translatable="false">widget_theme</string>
+    <string name="task_text_ellipsizing_pref_key" translatable="false">task_text_ellipsizing</string>
+    <string name="widget_extended_pref_key"       translatable="false">widget_extended</string>
+    <string name="behavior_cat_key"               translatable="false">behavior_category</string>
+    <string name="clone_tags_key"                 translatable="false">clone_tags</string>
+    <string name="word_wrap_key"                  translatable="false">word_wrap</string>
+    <string name="color_due_date_key"             translatable="false">color_due_date</string>
+    <string name="taskrc_file_key"                  translatable="false">taskrc_file</string>
+    <string name="back_key_saves_key"             translatable="false">back_saves</string>
+    <string name="show_edittext_hint"            translatable="false">show_edittext_hint</string>
+    <string name="share_task_append_text"         translatable="false">share_task_append_task</string>
+    <string name="ui_show_confirmation_dialogs"   translatable="false">ui_show_confirmation_dialogs</string>
+    <string name="widget_header_transparency"     translatable="false">widget_header_transparency</string>
+    <string name="widget_background_transparency" translatable="false">widget_background_transparency</string>
+    <string name="last_open_filter_tab"           translatable="false">last_open_filter_tab</string>
+    <string name="ui_sort_case_sensitive"         translatable="false">ui_sort_case_sensitive</string>
+    <string name="keep_selection"                 translatable="false">keep_selection</string>
+    <string name="back_clears_filter"             translatable="false">back_clears_filter</string>
+    <string name="font_size"                      translatable="false">font_size</string>
+    <string name="font_key"                       translatable="false">font_key</string>
+    <string name="datebar_relative_size"          translatable="false">datebar_delta_sp</string>
+    <string name="latest_changelog_shown"         translatable="false">latest_changelog_shown</string>
+    <string name="ui_complete_checkbox"           translatable="false">ui_complete_checkbox</string>
+    <string name="ui_last_scroll_position"        translatable="false">ui_last_scroll_position</string>
+    <string name="ui_last_scroll_offset"          translatable="false">ui_last_scroll_offset</string>
+    <string name="active_report_name"             translatable="false">active_report_name</string>
+    <string name="quick_projects_filter"          translatable="false">quick_projects_filter</string>
+    <string name="quick_tags_filter"              translatable="false">quick_tags_filter</string>
+</resources>
