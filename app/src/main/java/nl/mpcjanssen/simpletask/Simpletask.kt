@@ -482,7 +482,7 @@ class Simpletask : ThemedNoActionBarActivity() {
                 }
             }
             R.id.clear_filter -> clearQuickFilter()
-            R.id.update -> startAddTaskActivity()
+            R.id.update -> startEditTaskActivity()
             R.id.edit_rc -> startActivity(intentFor<EditRCActivity>())
             R.id.defer_due -> deferTasks(checkedTasks, DateType.DUE)
             R.id.defer_threshold -> deferTasks(checkedTasks, DateType.THRESHOLD)
@@ -491,6 +491,10 @@ class Simpletask : ThemedNoActionBarActivity() {
             else -> return super.onOptionsItemSelected(item)
         }
         return true
+    }
+
+    private fun startEditTaskActivity() {
+        startActivity<EditTaskActivity>("uuid" to TaskList.selection.first().uuid)
     }
 
     private fun clearQuickFilter() {

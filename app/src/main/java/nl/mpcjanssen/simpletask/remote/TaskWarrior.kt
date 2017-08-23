@@ -67,12 +67,16 @@ object TaskWarrior : AnkoLogger {
     var configLinePattern = Pattern.compile("^([A-Za-z0-9\\._]+)\\s+(\\S.*)$")
 
     fun callTaskForSelection(selection: List<Task>, vararg arguments: String) {
+        callTaskForUUIDs(selection.map {it.uuid}, *arguments)
+    }
+
+    fun callTaskForUUIDs(uuids: List<String>, vararg arguments: String) {
         val args = ArrayList<String>()
-        if (selection.isEmpty()) {
+        if (uuids.isEmpty()) {
             error("Trying to callTask for all tasks while selection was expected. Aborting..")
             return
         }
-        args.addAll(selection.map { it.uuid })
+        args.addAll(uuids)
         args.addAll(arguments)
         callTask(*args.toTypedArray())
     }
@@ -156,17 +160,13 @@ object TaskWarrior : AnkoLogger {
         return result
     }
 
-    fun taskList(reportName: String, reloadConfig : Boolean = false): List<Task> {
+    fun getTasks(filter: String) : List<Task> {
         val result = ArrayList<String>()
         val params = ArrayList<String>()
-        if (reloadConfig || config.isEmpty()) {
-            reloadConfig()
-        }
-        val reportFilter = config.getOrDefault("report.$reportName.filter", "")
-        if (reportFilter.isNotBlank()) {
-            params.add("( $reportFilter )")
-        }
 
+        if (filter.isNotBlank()) {
+            params.add("( $filter )")
+        }
         params.add("rc.json.array=off")
         params.add("rc.verbose=nothing")
         params.add("export")
@@ -187,8 +187,17 @@ object TaskWarrior : AnkoLogger {
             return ArrayList<Task>()
         }
         info("List size=${result.size}")
+        return result.map(Task.Companion::fromJSON)
+    }
 
-        val tasks =  result.map(Task.Companion::fromJSON)
+    fun taskList(reportName: String, reloadConfig : Boolean = false): List<Task> {
+
+        if (reloadConfig || config.isEmpty()) {
+            reloadConfig()
+        }
+        val reportFilter = config.getOrDefault("report.$reportName.filter", "")
+
+        val tasks = getTasks(reportFilter)
         val reportSort = config.getOrDefault("report.$reportName.sort", "")
         return tasks.sort(reportSort)
     }

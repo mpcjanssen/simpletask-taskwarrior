@@ -234,5 +234,19 @@ object TaskList : AnkoLogger {
             reload()
         }
     }
+
+    fun modify(uuids: List<String>, modifiedFields: Map<String, String>) {
+        queue("Modify task") {
+            val args = ArrayList<String>()
+            args.add("modify")
+            modifiedFields.keys.forEach {
+                when (it) {
+                    "description" -> args.add(modifiedFields.getValue(it))
+                }
+            }
+            TaskWarrior.callTaskForUUIDs(uuids, *args.toTypedArray())
+            reload()
+        }
+    }
 }
 

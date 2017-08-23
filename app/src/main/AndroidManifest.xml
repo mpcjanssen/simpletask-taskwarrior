@@ -75,13 +75,27 @@ You should have received a copy of the GNU General Public License along with Sim
             >
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="nl.mpcjanssen.simpletask.Simpletask"
-                />
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="nl.mpcjanssen.simpletask.Simpletask"
+            />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".EditTaskActivity"
+            android:exported="true"
+            android:label="@string/updatetask"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize"
+            tools:ignore="UnusedAttribute"
+            >
+        <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nl.mpcjanssen.simpletask.Simpletask"
+        />
+        </activity>
+
 
         <!-- Implemented in Kotlin, so fix lint complaining about it -->
         <activity

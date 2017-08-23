@@ -26,7 +26,7 @@
     <string name="add">Add</string>
     <string name="task">Task</string>
     <string name="addtask">Add Task</string>
-    <string name="updatetask">Update</string>
+    <string name="updatetask">Edit task</string>
     <string name="viewtask">View Task</string>
     <string name="cleartask">Clear Task</string>
     <string name="clear_database">Empty database</string>

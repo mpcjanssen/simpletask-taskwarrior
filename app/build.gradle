@@ -26,6 +26,9 @@ apply plugin: "org.jlleitschuh.gradle.ktlint"
 apply plugin: 'org.jetbrains.dokka'
 // apply plugin: 'com.getkeepsafe.dexcount'
 
+androidExtensions {
+    experimental = true
+}
 
 android {
     buildToolsVersion "25.0.2"

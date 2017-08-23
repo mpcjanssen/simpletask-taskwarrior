@@ -1,13 +1,11 @@
 package nl.mpcjanssen.simpletask.task
 
-
 import hirondelle.date4j.DateTime
 import org.json.JSONException
 import org.json.JSONObject
 import java.util.*
 
-
-data class Task(
+data class Task (
         val uuid: String,
         val description: String,
         val annotations: List<String>,
