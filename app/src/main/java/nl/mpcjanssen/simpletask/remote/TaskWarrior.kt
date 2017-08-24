@@ -259,7 +259,7 @@ object TaskWarrior : AnkoLogger {
             if (syncSocket!=null) {
                 syncSocket.close()
             }
-            if (arguments[0]=="sync") {
+            if (arguments[0] in arrayOf("sync", "add", "modify", "done")) {
                 app.longToast(stderrOutput.last())
             }
             return exitCode

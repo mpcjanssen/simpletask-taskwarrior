@@ -54,11 +54,12 @@ class EditRCActivity : ThemedActionBarActivity() {
 class EditRCActivityView : AnkoComponent<EditRCActivity> {
     lateinit var contents: EditText
     override fun createView(ui: AnkoContext<EditRCActivity>) = with(ui) {
-        verticalLayout {
+        gridView {
             contents = editText {
                 hint = "Contents"
                 gravity = Gravity.TOP or Gravity.START
                 Config.tasklistTextSize?.let { textSize = it }
+                
             }.lparams(height = matchParent, width = matchParent)
         }
     }
