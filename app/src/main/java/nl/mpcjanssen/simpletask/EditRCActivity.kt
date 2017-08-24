@@ -8,7 +8,6 @@ import android.widget.TextView
 import nl.mpcjanssen.simpletask.task.TaskList
 import nl.mpcjanssen.simpletask.util.Config
 import org.jetbrains.anko.*
-import org.jetbrains.anko.sdk25.coroutines.onClick
 
 
 class EditRCActivity : ThemedActionBarActivity() {
@@ -54,7 +53,7 @@ class EditRCActivity : ThemedActionBarActivity() {
 class EditRCActivityView : AnkoComponent<EditRCActivity> {
     lateinit var contents: EditText
     override fun createView(ui: AnkoContext<EditRCActivity>) = with(ui) {
-        gridView {
+        linearLayout() {
             contents = editText {
                 hint = "Contents"
                 gravity = Gravity.TOP or Gravity.START
