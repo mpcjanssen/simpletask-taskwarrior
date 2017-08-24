@@ -1,47 +1,45 @@
 package nl.mpcjanssen.simpletask
 
+import android.content.Context
 import android.os.Bundle
-import android.view.Gravity
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.EditText
 import android.widget.TextView
+import kotlinx.android.synthetic.main.edit_task.*
+import kotlinx.android.synthetic.main.edit_task_row.view.*
 import nl.mpcjanssen.simpletask.R.id.editText
 import nl.mpcjanssen.simpletask.remote.TaskWarrior
 import nl.mpcjanssen.simpletask.task.Task
 import nl.mpcjanssen.simpletask.task.TaskList
 import nl.mpcjanssen.simpletask.util.Config
 import org.jetbrains.anko.*
+import android.content.Context.LAYOUT_INFLATER_SERVICE
+import android.text.InputType
+import android.util.AttributeSet
+import android.view.*
+
 
 class EditTaskActivity : ThemedActionBarActivity(), AnkoLogger {
-    lateinit var descriptionView: EditText
-    lateinit var uuidView: TextView
-    lateinit var originalTask: Task
-    val uuid
-        get() = uuidView.text.toString()
-    val description
-        get() = descriptionView.text.toString()
 
+    lateinit var originalTask: Task
+    val originalValues = HashMap<String,String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         originalTask = TaskWarrior.getTasks(intent.getStringExtra("uuid")).first()
+        setContentView(R.layout.edit_task)
+        addRow("uuid", originalTask.uuid, true)
+        addRow("description", originalTask.description)
+    }
 
-        verticalLayout {
-            uuidView = textView {
-                hint = "Description"
-                gravity = Gravity.TOP or Gravity.START
-                maxLines = 1
-                Config.tasklistTextSize?.let { textSize = it }
-            }.lparams(height = wrapContent, width = matchParent)
-            descriptionView = editText {
-                hint = "Description"
-                gravity = Gravity.TOP or Gravity.START
-                Config.tasklistTextSize?.let { textSize = it }
-            }.lparams(height = wrapContent, width = wrapContent)
+    fun addRow(name: String, value: String, readOnly: Boolean = false) {
+        val row = layoutInflater.inflate(R.layout.edit_task_row, null, false)
+        row.rowName.text = name
+        row.rowValue.setText(value)
+        if (readOnly) {
+            row.rowValue.inputType = InputType.TYPE_NULL
         }
-        uuidView.text = originalTask.uuid
-        descriptionView.setText(originalTask.description)
+        originalValues[name] = value
+        edit_table.addView(row)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -65,9 +63,16 @@ class EditTaskActivity : ThemedActionBarActivity(), AnkoLogger {
 
     private fun saveContents() {
         val updatedFields = HashMap<String,String>()
-        if (originalTask.description!=description) {
-            updatedFields["description"] = description
+        for (idx in 0 until edit_table.childCount) {
+            val child = edit_table.getChildAt(idx)
+            val name = child.rowName.text.toString()
+            val newValue = child.rowValue.text.toString()
+            if (originalValues[name] != newValue) {
+                updatedFields[name] = newValue
+            }
         }
+
+        val uuid = originalTask.uuid
         if (updatedFields.isEmpty()) {
             info("No changes to task $uuid")
         } else {
