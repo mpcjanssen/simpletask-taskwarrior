@@ -259,8 +259,11 @@ object TaskWarrior : AnkoLogger {
             if (syncSocket!=null) {
                 syncSocket.close()
             }
-            if (arguments[0] in arrayOf("sync", "add", "modify", "done")) {
-                app.longToast(stderrOutput.last())
+            if (arguments[0] != "export") {
+                val lines = stderrOutput.filter { !it.contains(" override") }
+                if (lines.isNotEmpty()) {
+                    app.longToast(lines.joinToString("\n"))
+                }
             }
             return exitCode
         } catch (e: Exception) {
