@@ -497,6 +497,10 @@ class Simpletask : ThemedNoActionBarActivity() {
         startActivity<EditTaskActivity>("uuid" to TaskList.selection.first().uuid)
     }
 
+    fun onClearClick(v: View) {
+        clearQuickFilter()
+    }
+
     private fun clearQuickFilter() {
         Config.quickProjectsFilter = null
         Config.quickTagsFilter = null

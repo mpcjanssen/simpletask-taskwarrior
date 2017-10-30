@@ -195,10 +195,10 @@ object TaskWarrior : AnkoLogger {
         if (reloadConfig || config.isEmpty()) {
             reloadConfig()
         }
-        val reportFilter = config.getOrDefault("report.$reportName.filter", "")
+        val reportFilter = config.get("report.$reportName.filter") ?: ""
 
         val tasks = getTasks(reportFilter)
-        val reportSort = config.getOrDefault("report.$reportName.sort", "")
+        val reportSort = config.get("report.$reportName.sort") ?: ""
         return tasks.sort(reportSort)
     }
 
@@ -409,7 +409,7 @@ private fun List<Task>.sort(reportSort: String): List<Task> {
     if (reportSort == "") {
         return this
     }
-    val comps = reportSort.split(",").map { sortStringToComparator(it) }.filterNotNull()
+    val comps = reportSort.split(",").mapNotNull { sortStringToComparator(it) }
     if (comps.isEmpty()) {
         return this
     }
