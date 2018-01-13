@@ -719,8 +719,9 @@ class Simpletask : ThemedNoActionBarActivity() {
             val fullText = (text + project + " " + tags).trim()
             val ss = SpannableString(fullText)
 
-            ss.setSpan(ForegroundColorSpan(Color.GRAY), startColorSpan, ss.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-
+            if (ss.length > startColorSpan) {
+              ss.setSpan(ForegroundColorSpan(Color.GRAY), startColorSpan, ss.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            }
             taskAge.textSize = textSize * Config.dateBarRelativeSize
             taskDue.textSize = textSize * Config.dateBarRelativeSize
             taskThreshold.textSize = textSize * Config.dateBarRelativeSize
