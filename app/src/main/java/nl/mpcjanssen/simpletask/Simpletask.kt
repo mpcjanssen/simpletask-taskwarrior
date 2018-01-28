@@ -51,6 +51,7 @@ import nl.mpcjanssen.simpletask.task.TaskList
 import nl.mpcjanssen.simpletask.task.asCliList
 import nl.mpcjanssen.simpletask.util.*
 import org.jetbrains.anko.*
+import java.lang.Integer.min
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashSet
@@ -72,8 +73,8 @@ class Simpletask : ThemedNoActionBarActivity() {
     private var localBroadcastManager: LocalBroadcastManager? = null
 
     // Drawer side
-    private val NAV_DRAWER = GravityCompat.END
-    private val FILTER_DRAWER = GravityCompat.START
+    private val REPORT_DRAWER = GravityCompat.END
+    private val QUICK_FILTER_DRAWER = GravityCompat.START
 
     private var m_drawerToggle: ActionBarDrawerToggle? = null
     private var m_savedInstanceState: Bundle? = null
@@ -353,8 +354,8 @@ class Simpletask : ThemedNoActionBarActivity() {
      * if this returns either _DRAWER, m_drawerLayout!!. calls are safe to make
      */
     private fun activeMode(): Mode {
-        if (isDrawerOpen(NAV_DRAWER)) return Mode.NAV_DRAWER
-        if (isDrawerOpen(FILTER_DRAWER)) return Mode.FILTER_DRAWER
+        if (isDrawerOpen(REPORT_DRAWER)) return Mode.NAV_DRAWER
+        if (isDrawerOpen(QUICK_FILTER_DRAWER)) return Mode.FILTER_DRAWER
         if (TaskList.selection.isNotEmpty()) return Mode.SELECTION
         return Mode.MAIN
     }
@@ -365,6 +366,10 @@ class Simpletask : ThemedNoActionBarActivity() {
             return false
         }
         return drawer_layout.isDrawerOpen(drawer)
+    }
+
+    private fun openDrawer(drawer: Int) {
+        drawer_layout?.openDrawer(drawer)
     }
 
     private fun closeDrawer(drawer: Int) {
@@ -449,10 +454,10 @@ class Simpletask : ThemedNoActionBarActivity() {
             androidId.home -> {
                 when (activeMode()) {
                     Mode.NAV_DRAWER -> {
-                        closeDrawer(NAV_DRAWER)
+                        closeDrawer(REPORT_DRAWER)
                     }
                     Mode.FILTER_DRAWER -> {
-                        closeDrawer(FILTER_DRAWER)
+                        closeDrawer(QUICK_FILTER_DRAWER)
                     }
                     Mode.SELECTION -> {
                         closeSelectionMode()
@@ -480,6 +485,10 @@ class Simpletask : ThemedNoActionBarActivity() {
                 if (TaskWarrior.getWritePermission(this, REQUEST_PERMISSION)) {
                     m_app.browseForNewFile(this)
                 }
+            }
+            R.id.filter -> {
+                closeDrawer(QUICK_FILTER_DRAWER)
+                openDrawer(REPORT_DRAWER)
             }
             R.id.clear_filter -> clearQuickFilter()
             R.id.update -> startEditTaskActivity()
@@ -524,10 +533,10 @@ class Simpletask : ThemedNoActionBarActivity() {
     override fun onBackPressed() {
         when (activeMode()) {
             Mode.NAV_DRAWER -> {
-                closeDrawer(NAV_DRAWER)
+                closeDrawer(REPORT_DRAWER)
             }
             Mode.FILTER_DRAWER -> {
-                closeDrawer(FILTER_DRAWER)
+                closeDrawer(QUICK_FILTER_DRAWER)
             }
             Mode.SELECTION -> {
                 closeSelectionMode()
@@ -573,7 +582,7 @@ class Simpletask : ThemedNoActionBarActivity() {
         nav_drawer.isLongClickable = true
         nav_drawer.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             Config.activeReport = names[position]
-            closeDrawer(NAV_DRAWER)
+            closeDrawer(REPORT_DRAWER)
             closeSelectionMode()
             TaskList.reload("report changed")
             updateDrawers()
@@ -713,12 +722,12 @@ class Simpletask : ThemedNoActionBarActivity() {
             val completed = line.isCompleted
             val text = line.displayText
 
-            val startColorSpan = text.length
+
             val tags = line.tags.joinToString(" ") { "+"+it }
             val project = line.project?.let {" @" + it} ?: ""
             val fullText = (text + project + " " + tags).trim()
             val ss = SpannableString(fullText)
-
+            val startColorSpan = min(text.length, ss.length)
             ss.setSpan(ForegroundColorSpan(Color.GRAY), startColorSpan, ss.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 
             taskAge.textSize = textSize * Config.dateBarRelativeSize
