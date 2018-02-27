@@ -88,12 +88,14 @@ class FileDialog
             if (fileList1 != null) {
                 Collections.addAll(r, *fileList1)
             } else {
-                // Fallback to root
-                r.add("/")
+                // Fallback to defaults
+                r.add(Environment.getRootDirectory().path)
+                r.add(Environment.getExternalStorageDirectory().path)
             }
         } else {
-            // Fallback to root
-            r.add("/")
+            // Fallback to defaults
+            r.add(Environment.getRootDirectory().path)
+            r.add(Environment.getExternalStorageDirectory().path)
         }
         Collections.sort(r)
         fileList = r.toArray(arrayOfNulls<String>(r.size))
@@ -102,8 +104,8 @@ class FileDialog
     private fun getChosenFile(fileChosen: String): File {
         if (fileChosen == PARENT_DIR)
             return currentPath!!.parentFile
-        else if (fileChosen == "/") {
-            return File("/")
+        else if (fileChosen.startsWith("/")) {
+            return File(fileChosen)
         } else {
             return File(currentPath, fileChosen)
         }

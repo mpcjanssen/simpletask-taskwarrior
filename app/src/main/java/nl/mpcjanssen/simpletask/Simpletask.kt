@@ -25,6 +25,9 @@ import android.os.Build
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.LocalBroadcastManager
+import android.support.v4.content.pm.ShortcutInfoCompat
+import android.support.v4.content.pm.ShortcutManagerCompat
+import android.support.v4.graphics.drawable.IconCompat
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AlertDialog
@@ -102,7 +105,7 @@ class Simpletask : ThemedNoActionBarActivity() {
 
         localBroadcastManager = m_app.localBroadCastManager
 
-        m_broadcastReceiver = object : BroadcastReceiver() {
+        val broadcastReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, receivedIntent: Intent) {
 
                 if (receivedIntent.action == Constants.BROADCAST_UPDATE_UI) {
@@ -127,8 +130,8 @@ class Simpletask : ThemedNoActionBarActivity() {
                 }
             }
         }
-        localBroadcastManager!!.registerReceiver(m_broadcastReceiver, intentFilter)
-
+        localBroadcastManager!!.registerReceiver(broadcastReceiver, intentFilter)
+        m_broadcastReceiver = broadcastReceiver
         setSupportActionBar(main_actionbar)
 
         // Replace drawables if the theme is dark
@@ -194,12 +197,12 @@ class Simpletask : ThemedNoActionBarActivity() {
                  * Called when a drawer has settled in a completely closed
                  * state.
                  */
-                override fun onDrawerClosed(view: View?) {
+                override fun onDrawerClosed(view: View) {
                     invalidateOptionsMenu()
                 }
 
                 /** Called when a drawer has settled in a completely open state.  */
-                override fun onDrawerOpened(drawerView: View?) {
+                override fun onDrawerOpened(drawerView: View) {
                     invalidateOptionsMenu()
                 }
             }
@@ -257,7 +260,9 @@ class Simpletask : ThemedNoActionBarActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        localBroadcastManager!!.unregisterReceiver(m_broadcastReceiver)
+        m_broadcastReceiver?.let {
+            localBroadcastManager?.unregisterReceiver(it)
+        }
     }
 
     override fun onResume() {
@@ -607,21 +612,18 @@ class Simpletask : ThemedNoActionBarActivity() {
     }
 
     private fun createReportShortcut(reportName: String) {
-        val shortcut = Intent("com.android.launcher.action.INSTALL_SHORTCUT")
         val target = Intent(Constants.INTENT_START_REPORT)
-
         target.putExtra("name", reportName)
 
         // Setup target intent for shortcut
-        shortcut.putExtra(Intent.EXTRA_SHORTCUT_INTENT, target)
-
-        // Set shortcut icon
-        val iconRes = Intent.ShortcutIconResource.fromContext(this, R.drawable.ic_launcher)
-        shortcut.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, iconRes)
-        shortcut.putExtra(Intent.EXTRA_SHORTCUT_NAME, reportName)
-        sendBroadcast(shortcut)
+        val iconRes = IconCompat.createWithResource(this,  R.drawable.ic_launcher)
+        val pinShortcutInfo = ShortcutInfoCompat.Builder(this, "simpletaskLauncher")
+                .setIcon(iconRes)
+                .setShortLabel(reportName)
+                .setIntent(target)
+                .build()
+        ShortcutManagerCompat.requestPinShortcut(this, pinShortcutInfo, null)
     }
-
 
     private fun updateQuickFilterDrawer() {
         val projectsInDrawer = TaskList.projects.union(other = Config.quickProjectsFilter?.toList()?:ArrayList())
@@ -727,7 +729,7 @@ class Simpletask : ThemedNoActionBarActivity() {
             val project = line.project?.let {" @" + it} ?: ""
             val fullText = (text + project + " " + tags).trim()
             val ss = SpannableString(fullText)
-            val startColorSpan = min(text.length, ss.length)
+            val startColorSpan = Math.min(text.length, ss.length)
             ss.setSpan(ForegroundColorSpan(Color.GRAY), startColorSpan, ss.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 
             taskAge.textSize = textSize * Config.dateBarRelativeSize

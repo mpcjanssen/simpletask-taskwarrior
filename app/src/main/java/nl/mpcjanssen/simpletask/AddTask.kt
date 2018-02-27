@@ -47,7 +47,7 @@ class AddTask : ThemedActionBarActivity() {
 
         localBroadcastManager = STWApplication.app.localBroadCastManager
 
-        m_broadcastReceiver = object : BroadcastReceiver() {
+        val broadcastReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
                 if (intent.action == Constants.BROADCAST_SYNC_START) {
                     setProgressBarIndeterminateVisibility(true)
@@ -56,7 +56,8 @@ class AddTask : ThemedActionBarActivity() {
                 }
             }
         }
-        localBroadcastManager!!.registerReceiver(m_broadcastReceiver, intentFilter)
+        localBroadcastManager!!.registerReceiver(broadcastReceiver, intentFilter)
+        m_broadcastReceiver = broadcastReceiver
         window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
         setContentView(R.layout.add_task)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -197,8 +198,8 @@ class AddTask : ThemedActionBarActivity() {
 
     public override fun onDestroy() {
         super.onDestroy()
-        if (localBroadcastManager != null) {
-            localBroadcastManager!!.unregisterReceiver(m_broadcastReceiver)
+        m_broadcastReceiver?.let {
+            localBroadcastManager?.unregisterReceiver(it)
         }
     }
 
