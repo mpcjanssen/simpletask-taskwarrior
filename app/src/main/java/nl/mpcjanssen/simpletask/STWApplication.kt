@@ -30,31 +30,9 @@ class STWApplication : Application(), FileSelectedListener , AnkoLogger {
         info("Created task list " + TaskList)
         info("onCreate()")
         info("Started ${appVersion(this)}}")
-        scheduleOnNewDay()
         loadTodoList("Initial load")
     }
 
-
-    private fun scheduleOnNewDay() {
-        // Schedules activities to run on a new day
-        // - Refresh widgets and UI
-        // - Cleans up logging
-
-        val calendar = Calendar.getInstance()
-
-        // Prevent alarm from triggering for today when setting it
-        calendar.add(Calendar.DATE, 1)
-        calendar.set(Calendar.HOUR_OF_DAY, 0)
-        calendar.set(Calendar.MINUTE, 2)
-        calendar.set(Calendar.SECOND, 0)
-
-        info("Scheduling daily UI updateCache alarm, first at ${calendar.time}")
-        val pi = PendingIntent.getBroadcast(this, 0,
-                Intent(this, AlarmReceiver::class.java), PendingIntent.FLAG_UPDATE_CURRENT)
-        val am = this.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis,
-                AlarmManager.INTERVAL_DAY, pi)
-    }
 
     fun switchTodoFile(newTodo: String) {
         Config.rcFileName = newTodo
