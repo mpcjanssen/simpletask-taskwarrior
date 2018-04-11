@@ -98,6 +98,9 @@ class FileDialog
             r.add(Environment.getExternalStorageDirectory().path)
         }
         Collections.sort(r)
+        if (r.size == 1 && r[0] == "/") {
+            r.add(Environment.getExternalStorageDirectory().path)
+        }
         fileList = r.toArray(arrayOfNulls<String>(r.size))
     }
 

@@ -46,6 +46,7 @@ import kotlinx.android.synthetic.main.list_item.view.*
 import kotlinx.android.synthetic.main.main.*
 import kotlinx.android.synthetic.main.update_project_dialog.view.*
 import kotlinx.android.synthetic.main.update_tags_dialog.view.*
+import nl.mpcjanssen.simpletask.R.id.main_actionbar
 import nl.mpcjanssen.simpletask.adapters.DrawerAdapter
 import nl.mpcjanssen.simpletask.adapters.ItemDialogAdapter
 import nl.mpcjanssen.simpletask.remote.TaskWarrior
