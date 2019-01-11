@@ -286,7 +286,7 @@ class Simpletask : ThemedNoActionBarActivity() {
         super.onPause()
     }
 
-    @SuppressLint("Recycle")
+    @SuppressLint("Recycle", "ResourceType")
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         Log.i(TAG, "Recreating options menu")
         this.options_menu = menu
@@ -680,7 +680,7 @@ class Simpletask : ThemedNoActionBarActivity() {
             return visibleTasks.size + 1
         }
 
-        override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): TaskViewHolder {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
             val view = when (viewType) {
                 0 -> {
                     // Header
@@ -699,8 +699,7 @@ class Simpletask : ThemedNoActionBarActivity() {
             return TaskViewHolder(view, viewType)
         }
 
-        override fun onBindViewHolder(holder: TaskViewHolder?, position: Int) {
-            if (holder == null) return
+        override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
             when (holder.viewType) {
                 1 -> bindTask(holder, position)
                 else -> return

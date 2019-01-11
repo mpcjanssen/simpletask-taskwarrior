@@ -34,6 +34,7 @@ import android.os.Bundle
 import android.util.Log
 import nl.mpcjanssen.simpletask.task.TaskList
 import nl.mpcjanssen.simpletask.util.Config
+import org.jetbrains.anko.longToast
 import org.jetbrains.anko.toast
 import java.io.IOException
 
@@ -46,6 +47,7 @@ class AddTaskBackground : Activity() {
 
         val intent = intent
         val action = intent.action
+        longToast(intent.dataString)
 
         val append_text = Config.shareAppendText
         if (intent.type.startsWith("text/")) {

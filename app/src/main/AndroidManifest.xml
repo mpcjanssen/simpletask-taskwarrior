@@ -143,7 +143,12 @@ You should have received a copy of the GNU General Public License along with Sim
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
-
+            <intent-filter >
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="file" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
             <intent-filter>
                 <action android:name="android.provider.calendar.action.HANDLE_CUSTOM_EVENT" />
                 <category android:name="android.intent.category.DEFAULT" />
