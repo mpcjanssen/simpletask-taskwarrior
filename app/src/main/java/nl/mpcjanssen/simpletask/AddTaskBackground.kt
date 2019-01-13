@@ -47,7 +47,6 @@ class AddTaskBackground : Activity() {
 
         val intent = intent
         val action = intent.action
-        longToast(intent.dataString)
 
         val append_text = Config.shareAppendText
         if (intent.type.startsWith("text/")) {

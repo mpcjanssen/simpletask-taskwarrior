@@ -3,7 +3,7 @@
 <resources>
     <string name="invalid_project">Invalid project name</string>
     <string name="invalid_tag">Invalid tag name</string>
-    <string name="app_label">SimpleTW</string>
+    <string name="app_label">Simplewarrior</string>
     <string name="added_task">Added task</string>
     <string name="add_task_failed">Could not add task</string>
     <string name="save_task">Save task</string>
